@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>мой интернет магазин</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <script src="/assets/js/bootstrap.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Интернет=магазин</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Главная страница</a>
+                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Авторизация</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item"><a class="nav-link" href="#">Мои заказы</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Мой аккаунт</a></li>
+                            @if(Auyh::user()->role == 'admin')
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Администрирование
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Добавить товар</a></li>
+                                        <li><a class="dropdown-item" href="#">Все товары</a></li>
+                                        <li><a class="dropdown-item" href="#">Просмотр заказов</a></li>
+                                        <li><a class="dropdown-item" href="#">Пользователи</a></li>
+                                    </ul>
+                                </li>
+                            @endif
+                    @endauth
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @yield('content')
+</body>
+</html>
