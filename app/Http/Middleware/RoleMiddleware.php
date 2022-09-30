@@ -15,13 +15,10 @@ class RoleMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         # получаем роль авторизованного пользователя
         $userRole = Auth::user()->role;
-
-        # создаем массив из ролей
-        $roles = explode(',', $role);
 
         # проверяет роль пользователя, подходит ли она под роли проверки
         if(in_array($userRole, $roles))

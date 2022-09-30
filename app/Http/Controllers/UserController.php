@@ -52,9 +52,20 @@ class UserController extends Controller
      */
     public function registerPost(RegisterValidation $request)
     {
-        $requests =
-        $request->merge(['password' => Hash::make($request->password)]);
-        User::create($request->validated());
+        $requests = $request->validated();
+        $requests['password'] = Hash::make($requests['password']);
+        User::create($requests);
         return redirect()->route('login')->with(['register' => true]);
+    }
+
+    /**
+     * Выход из аккаунта пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->regenerate();
+        return redirect()->route('login');
     }
 }

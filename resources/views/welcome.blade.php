@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>мой интернет магазин</title>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <script src="/assets/js/bootstrap.js"></script>
+    <script src="/assets/js/bootstrap.bundle.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -32,19 +32,20 @@
                     @auth
                         <li class="nav-item"><a class="nav-link" href="#">Мои заказы</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Мой аккаунт</a></li>
-                            @if(Auyh::user()->role == 'admin')
+                            @if(Auth::user()->role == 'admin')
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Администрирование
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Добавить товар</a></li>
-                                        <li><a class="dropdown-item" href="#">Все товары</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('admin.product.create') }}">Добавить товар</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('admin.product.index') }}">Все товары</a></li>
                                         <li><a class="dropdown-item" href="#">Просмотр заказов</a></li>
                                         <li><a class="dropdown-item" href="#">Пользователи</a></li>
                                     </ul>
                                 </li>
                             @endif
+                        <li class="nav-item"><a class="nav-link" href="{{route('logout')}}">Выход</a></li>
                     @endauth
                 </ul>
             </div>
