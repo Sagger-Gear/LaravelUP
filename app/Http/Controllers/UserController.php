@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Requests\Admin\Product\EditUserValidation;
 use App\Http\Requests\LoginValidation;
 use App\Http\Requests\RegisterValidation;
 use App\Models\User;
@@ -58,6 +59,25 @@ class UserController extends Controller
         return redirect()->route('login')->with(['register' => true]);
     }
 
+    public function cabinet()
+    {
+        return view('users.cabinet');
+    }
+
+    public function cabinetEdit()
+    {
+        return view('users.edit');
+    }
+
+    public function cabinetEditPost(EditUserValidation $request)
+    {
+        $arr = $request->validated();
+        if(!$arr['password']) unset($arr['password']);
+        else $arr['password'] = Hash::make($arr['password']);
+        $user = Auth::user();
+        $user->update($arr);
+        return back()->with(['success' => true]);
+    }
     /**
      * Выход из аккаунта пользователя
      * @param Request $request
